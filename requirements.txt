@@ -1,0 +1,11 @@
+# 노트북(시뮬레이터)과 라즈베리파이 공통
+pyyaml
+
+# 라즈베리파이에서만 필요 (노트북에서는 설치 안 해도 --sim 동작)
+# picamera2, opencv, lgpio 는 apt로 설치 → 매뉴얼 6.3
+gpiozero ; platform_machine == "aarch64"
+adafruit-blinka ; platform_machine == "aarch64"
+adafruit-circuitpython-ads1x15 ; platform_machine == "aarch64"
+adafruit-circuitpython-bme280 ; platform_machine == "aarch64"
+
+# 비전 모델 런타임은 1주차 스파이크 결과를 보고 추가

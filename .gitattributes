@@ -1,0 +1,8 @@
+# 윈도우 노트북과 라즈베리파이(리눅스) 사이에서 줄바꿈 문자가 섞이지 않도록
+# 텍스트 파일은 저장소에 항상 LF로 저장
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.xlsx binary

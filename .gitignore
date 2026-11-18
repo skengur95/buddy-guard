@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# 가상환경
+.venv/
+venv/
+
+# 비밀 정보 (Wi-Fi 비밀번호, 토큰 등)
+.env
+secrets.yaml
+
+# 실행 중 생기는 데이터 (기록·녹화) — 폴더는 유지, 내용은 제외
+data/*
+!data/.gitkeep
+*.db
+*.sqlite
+*.log
+
+# AI 모델 파일 (용량이 커서 Git에 올리지 않음 → 공유 드라이브로 공유)
+models/*
+!models/.gitkeep
+*.onnx
+*.tflite
+*.pt
+*.bin
+*.param
+
+# 테스트 영상 (용량 큼)
+*.mp4
+*.avi
+*.h264
+
+# 에디터·OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

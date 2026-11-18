@@ -1,0 +1,10 @@
+name: "S3+S4 교대 정상 (짧은 버전)"
+events:
+  - {t: 0, source: vision.outer, type: zone_count, data: {persons_in_zone: 1}}
+  - {t: 1, source: input.rfid,   type: tag,        data: {uid: "A1B2C3D4"}}
+  - {t: 2, source: vision.outer, type: zone_count, data: {persons_in_zone: 0}}
+  - {t: 4, source: vision.outer, type: zone_count, data: {persons_in_zone: 1}}
+expect:
+  - {t: 1.5, state: HANDOVER}
+  - {t: 7,   state: WORKING}
+  - {never: GUARD_ABSENT}

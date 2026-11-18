@@ -1,0 +1,45 @@
+# 모든 기준값·핀 번호는 여기서만 바꾼다 (코드에 숫자 직접 쓰지 않기)
+# 가스·온도 기준은 시연용 출발값 — 보정(docs/calibration.md) 후 확정
+
+timezone: Asia/Seoul
+
+guard:
+  absent_seconds: 5            # D1 감시인 부재 판정 시간
+  handover_grace_seconds: 60   # 교대 유예
+  handover_confirm_seconds: 3  # 새 감시인이 이 시간 동안 보이면 교대 완료
+  zone: [[120, 80], [520, 80], [520, 460], [120, 460]]   # 바깥 카메라 화면 좌표(픽셀)
+
+fall:
+  confirm_seconds: 2           # D2 쓰러짐 확정 시간
+  torso_angle_deg: 60
+  bbox_ratio: 1.2
+
+gas:
+  warmup_seconds: 180
+  baseline_seconds: 30
+  mq2: {warn_ratio: 1.5, alarm_ratio: 2.0}
+  mq7: {warn_ratio: 1.5, alarm_ratio: 2.0}
+
+temp:
+  warn_c: 35
+  alarm_c: 40
+  rise_c_per_min: 5
+
+device:
+  frame_timeout_s: 2
+  sensor_fail_count: 3
+
+rfid:
+  handover_uids: []            # 교대 카드 UID 목록 (HW가 카드 읽은 뒤 채움)
+
+pins:                          # BCM 번호 — docs/wiring.md 와 반드시 일치
+  flame: 17
+  buzzer_outer: 27
+  buzzer_inner: 22
+  led_outer: {red: 5, yellow: 6, green: 13}
+  led_inner: {red: 19, yellow: 20, green: 21}
+  btn_handover: 26
+  btn_ack: 16
+  btn_start: 24
+  relay: 23
+  rfid_rst: 25
