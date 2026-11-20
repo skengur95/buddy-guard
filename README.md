@@ -30,6 +30,9 @@ python main.py --sim sim/scenarios/s3_handover_ok.yaml
 | `sensors/` | MQ-2, MQ-7(ADS1115), BME280, 불꽃 | HW |
 | `io_devices/` | 부저, LED, 릴레이, 버튼, RFID | HW |
 | `vision/` | 카메라, 사람 검출, 감시 구역, 쓰러짐 | SW/AI |
+| `common` | 공통 반환 형식 합의 / 카메라 모듈 | SW |
+| `outer` | 감시자 쪽 카메라 기능 구현 | SW |
+| `inner` | 내부 작업자 쪽 카메라 기능 구현 | SW |
 | `logic/` | 상태 머신, 판정 규칙 | SW/AI |
 | `alerts/` | 경보 등급 → 출력 패턴 | SW/AI |
 | `storage/` | 이벤트 기록 (events.db) | SW/AI |
