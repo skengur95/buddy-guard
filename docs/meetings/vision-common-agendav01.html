@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko" data-rev="2"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비전 공통 형식 — 정할 것 · 논의할 것 (buddy-guard 회의 자료)</title>
+<style>
+:root{--bg:#f6f5f1;--paper:#fff;--ink:#1d1f23;--ink2:#4a4f57;--muted:#80868f;--line:#e3e1da;--soft:#efede6;
+--amber:#e8a317;--blue:#2c6bb5;--blue-bg:#e9f1fb;--green:#2f8a57;--green-bg:#e8f5ee;--yellow-bg:#fff6df;--red:#c8372d;--red-bg:#fdecea;--violet:#6b4fb3;--violet-bg:#f1ecfb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+code,pre{font-family:"JetBrains Mono",Consolas,"D2Coding",ui-monospace,monospace}
+code{background:var(--soft);padding:1px 5px;border-radius:4px;font-size:.88em}
+.bar{position:sticky;top:0;z-index:10;background:rgba(246,245,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1180px;margin:0 auto;padding:9px 18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar .title{font-weight:800;margin-right:auto;display:flex;gap:8px;align-items:center}
+.bar .title i{width:12px;height:12px;border-radius:3px;background:repeating-linear-gradient(45deg,var(--amber) 0 4px,#222 4px 8px)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 11px;font:inherit;font-size:13.5px;cursor:pointer;color:var(--ink)}
+.btn:hover{background:var(--soft)}
+.btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.on{background:var(--violet);color:#fff;border-color:var(--violet)}
+.btn.red{color:var(--red);border-color:#f0c4bf}
+.btn.sm{font-size:12px;padding:2px 8px}
+.status{font-size:12.5px;color:var(--muted)}
+main{max-width:1180px;margin:0 auto;padding:20px 18px 90px}
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px;position:relative;overflow:hidden;margin-bottom:16px}
+.hero:before{content:"";position:absolute;left:0;top:0;right:0;height:6px;background:repeating-linear-gradient(45deg,var(--amber) 0 14px,#222 14px 28px)}
+.hero h1{margin:6px 0 8px;font-size:24px;letter-spacing:-.02em}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+@media(max-width:800px){.meta{grid-template-columns:1fr 1fr}}
+.meta label{font-size:12.5px;color:var(--muted);display:block}
+.meta input{width:100%;font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px}
+section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:6px 22px 18px;margin-bottom:14px}
+h2{font-size:19px;margin:16px 0 4px;letter-spacing:-.02em}
+h2 .tag{font-size:12px;font-weight:600;background:var(--soft);color:var(--ink2);border-radius:5px;padding:2px 8px;margin-left:6px;vertical-align:2px}
+h3{font-size:16px;margin:20px 0 6px}
+h3:before{content:"";display:inline-block;width:4px;height:14px;background:var(--amber);margin-right:8px;vertical-align:-1px;border-radius:2px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 10px}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--soft);white-space:nowrap}
+td.id{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px;color:var(--muted);white-space:nowrap}
+td.dc{min-width:210px;background:#fcfbf8}
+td.dc label{display:inline-flex;gap:4px;align-items:center;margin-right:10px;white-space:nowrap;cursor:pointer}
+td.dc input.chg{display:block;width:100%;margin-top:5px;font:inherit;font-size:13.5px;padding:4px 7px;border:1px solid var(--line);border-radius:5px}
+tr.ok td.dc{background:var(--green-bg)}
+tr.chg td.dc{background:var(--yellow-bg)}
+textarea{width:100%;font:inherit;font-size:13.5px;padding:5px 7px;border:1px solid var(--line);border-radius:5px;resize:vertical}
+select{font:inherit;font-size:13.5px;padding:4px 6px;border:1px solid var(--line);border-radius:5px}
+.co{border-radius:8px;padding:10px 14px;margin:8px 0;border-left:4px solid}
+.co.blue{background:var(--blue-bg);border-color:var(--blue)}
+.co.yellow{background:var(--yellow-bg);border-color:var(--amber)}
+.co.green{background:var(--green-bg);border-color:var(--green)}
+.co.violet{background:var(--violet-bg);border-color:var(--violet)}
+ul.chk{list-style:none;padding:0;margin:6px 0}
+ul.chk li{padding:5px 0;border-bottom:1px dashed var(--line)}
+ul.chk input{width:16px;height:16px;accent-color:var(--green);vertical-align:-3px}
+details{border:1px solid var(--line);border-radius:8px;margin:8px 0;background:#fcfbf8}
+details>summary{cursor:pointer;padding:8px 12px;font-weight:600}
+details>div{padding:0 12px 10px}
+.pre{position:relative}
+.pre .cp{position:absolute;right:8px;top:8px}
+pre{background:#1f2329;color:#e6e6e6;padding:13px 15px;border-radius:8px;overflow:auto;font-size:12.5px;line-height:1.55;margin:6px 0}
+.sched td:first-child{white-space:nowrap;font-weight:600}
+body.editing .ed{outline:1px dashed var(--violet);outline-offset:2px;border-radius:3px;background:#fbf9ff}
+body.editing .ed:focus{outline:2px solid var(--violet);background:#fff}
+.editnote{display:none}
+body.editing .editnote{display:block}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30}
+.toast.show{opacity:1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:40}
+.modal .box{background:#fff;border-radius:12px;padding:18px 20px;max-width:380px}
+.modal .row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.howto ol{margin:4px 0 0;padding-left:20px}
+@media print{.bar,.cp,.howto{display:none!important}body{background:#fff}section,.hero{border:none}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="bar-in">
+  <div class="title"><i></i>비전 공통 형식 회의 자료</div>
+  <span class="status" id="status">입력 내용은 이 브라우저에 자동 저장돼요</span>
+  <button class="btn" id="btnEdit" title="표 안의 문구를 직접 고칠 수 있어요">✏️ 문구 편집</button>
+  <button class="btn" id="btnMd">📋 회의록 Markdown 복사</button>
+  <button class="btn" id="btnMdDl">⬇️ 회의록 .md</button>
+  <button class="btn dark" id="btnSave" title="입력·편집 내용을 담은 HTML 파일로 저장 → 깃허브에 커밋">💾 HTML 저장</button>
+  <button class="btn red" id="btnReset">초기화</button>
+</div></div>
+
+<main>
+<div class="hero">
+  <h1 class="ed">비전 공통 형식 — 정할 것 · 논의할 것</h1>
+  <div class="ed" style="color:var(--ink2)">buddy-guard · 감시 카메라(outer, 팀원) × 작업자 카메라(inner, 두혁) · 시간 표기는 KST</div>
+  <div class="meta">
+    <div><label>회의 날짜 (KST)</label><input type="date" name="m-date" value=""></div>
+    <div><label>회의 시간</label><input type="text" name="m-time" placeholder="예: 14:00~14:40" value=""></div>
+    <div><label>참석자</label><input type="text" name="m-who" placeholder="두혁, 팀원" value=""></div>
+    <div><label>회의록 작성자</label><input type="text" name="m-writer" placeholder="" value=""></div>
+  </div>
+</div>
+
+<div class="co violet howto">
+  <b>이 파일 쓰는 법</b>
+  <ol>
+    <li>표의 <b>결정</b> 칸에서 "추천대로" 또는 "변경"을 고르고, 변경이면 내용을 적어요. Part 2는 결론과 담당을 적어요. 입력 내용은 이 브라우저에 자동 저장돼요.</li>
+    <li>추천값이나 설명 문구 자체를 고치고 싶으면 <b>✏️ 문구 편집</b>을 켜고 글자를 바로 고쳐요.</li>
+    <li>회의가 끝나면 <b>📋 회의록 Markdown 복사</b> → <code>docs/meetings/YYYY-MM-DD.md</code>에 붙여 넣기.</li>
+    <li>입력·편집한 상태를 팀원과 공유하려면 <b>💾 HTML 저장</b> → 받은 파일로 저장소의 이 파일을 덮어쓰고 커밋·PR.</li>
+  </ol>
+  <div class="editnote" style="margin-top:6px;color:var(--violet)"><b>편집 모드 켜짐</b> — 점선 칸의 글자를 클릭해서 고칠 수 있어요. 고친 문구는 <b>💾 HTML 저장</b>을 눌러야 파일에 남아요.</div>
+</div>
+
+<div class="co blue ed"><b>🎯 이 회의의 목적</b>: 감시 카메라(outer)와 작업자 카메라(inner) 코드가 주고받는 <b>데이터의 모양을 똑같이 맞추는 것</b>. 형식만 먼저 고정되면 각자 따로 개발해도 나중에 그대로 맞물려요.</div>
+
+<section>
+  <h2>회의 진행 순서 <span class="tag">약 40분</span></h2>
+  <div class="tw"><table class="sched">
+    <tbody><tr><th>시간</th><th>할 일</th></tr>
+    <tr><td>회의 전</td><td class="ed">둘 다 이 페이지를 읽고, 바꾸고 싶은 항목의 결정 칸에 미리 표시해 오기</td></tr>
+    <tr><td>0~5분</td><td class="ed">목적 공유 (위 파란 박스)</td></tr>
+    <tr><td>5~20분</td><td class="ed"><b>Part 1</b> 정할 것 A~D — 추천대로면 바로 체크, 아니면 이유를 듣고 결정</td></tr>
+    <tr><td>20~35분</td><td class="ed"><b>Part 2</b> 논의할 것 — 하나씩 결론과 담당자까지 정하기</td></tr>
+    <tr><td>35~40분</td><td class="ed"><b>Part 3</b> 다음 할 일·기한 정리 → 회의록 작성자 정하기</td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2>Part 1. 정해야 할 것 <span class="tag">추천값 확인만</span> <span class="tag" id="p1prog">17 / 17 결정</span></h2>
+  <div style="display:flex;gap:6px;margin:6px 0"><button class="btn sm" id="allOk">남은 항목 모두 "추천대로"로</button></div>
+<h3 class="ed">A. 사람 한 명의 데이터 모양 (Person)</h3>
+<div class="tw"><table class="t1"><thead><tr><th>#</th><th>정할 것</th><th>추천</th><th>이유</th><th class="dc">결정</th></tr></thead><tbody>
+<tr data-id="A1" data-name="좌표 단위" class=""><td class="id">A1</td><td class="ed nm">좌표 단위</td><td class="ed rec"><b>픽셀</b> (예: 320, 240)</td><td class="ed why">감시 구역 좌표가 이미 픽셀이고, 화면에 그려서 확인하기 쉬움</td>
+<td class="dc"><label><input type="radio" name="A1" value="ok" checked=""> 추천대로</label><label><input type="radio" name="A1" value="chg"> 변경</label><input type="text" class="chg" name="A1-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="A2" data-name="좌표 원점·방향" class=""><td class="id">A2</td><td class="ed nm">좌표 원점·방향</td><td class="ed rec">왼쪽 위 (0,0), 오른쪽으로 x 증가, <b>아래로 y 증가</b></td><td class="ed why">이미지 표준. 쓰러짐 판정의 '머리가 내려감 = y가 커짐'으로 통일</td>
+<td class="dc"><label><input type="radio" name="A2" value="ok" checked=""> 추천대로</label><label><input type="radio" name="A2" value="chg"> 변경</label><input type="text" class="chg" name="A2-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="A3" data-name="박스(bbox) 표기" class=""><td class="id">A3</td><td class="ed nm">박스(bbox) 표기</td><td class="ed rec"><b>(x1, y1, x2, y2)</b> 왼쪽 위·오른쪽 아래</td><td class="ed why">YOLO 계열 결과가 보통 이 형태라 변환이 적음</td>
+<td class="dc"><label><input type="radio" name="A3" value="ok" checked=""> 추천대로</label><label><input type="radio" name="A3" value="chg"> 변경</label><input type="text" class="chg" name="A3-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="A4" data-name="관절 이름·개수" class=""><td class="id">A4</td><td class="ed nm">관절 이름·개수</td><td class="ed rec"><b>COCO 17개</b>, 아래 이름 목록 그대로</td><td class="ed why">팀원(발목)·두혁(어깨·엉덩이)이 같은 이름으로 꺼내 써야 함. 다른 모델도 detector 안에서 17개 이름으로 바꿔서 내보냄</td>
+<td class="dc"><label><input type="radio" name="A4" value="ok" checked=""> 추천대로</label><label><input type="radio" name="A4" value="chg"> 변경</label><input type="text" class="chg" name="A4-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="A5" data-name="관절이 안 보일 때" class=""><td class="id">A5</td><td class="ed nm">관절이 안 보일 때</td><td class="ed rec"><b>17개 항상 다 넣고</b> 안 보이면 신뢰도 0</td><td class="ed why">'이 관절이 있나?' 확인 코드가 필요 없음. 쓰는 쪽에서 신뢰도로 걸러냄</td>
+<td class="dc"><label><input type="radio" name="A5" value="ok" checked=""> 추천대로</label><label><input type="radio" name="A5" value="chg"> 변경</label><input type="text" class="chg" name="A5-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="A6" data-name="신뢰도 기준값" class=""><td class="id">A6</td><td class="ed nm">신뢰도 기준값</td><td class="ed rec">사람 <b>0.5</b>, 관절 <b>0.3</b> (config.yaml 공통값)</td><td class="ed why">둘이 다르면 같은 장면에서 한쪽만 사람이 있다고 판단함</td>
+<td class="dc"><label><input type="radio" name="A6" value="ok" checked=""> 추천대로</label><label><input type="radio" name="A6" value="chg"> 변경</label><input type="text" class="chg" name="A6-chg" placeholder="변경 내용" value=""></td></tr>
+</tbody></table></div>
+<div class="co yellow ed"><b>A4 관절 이름 17개</b> (이대로 복사해서 사용)<br><code>nose</code> · <code>l_eye</code> <code>r_eye</code> <code>l_ear</code> <code>r_ear</code> · <code>l_shoulder</code> <code>r_shoulder</code> <code>l_elbow</code> <code>r_elbow</code> <code>l_wrist</code> <code>r_wrist</code> · <code>l_hip</code> <code>r_hip</code> <code>l_knee</code> <code>r_knee</code> <code>l_ankle</code> <code>r_ankle</code><br><code>l_</code>/<code>r_</code>는 <b>화면 기준이 아니라 찍힌 사람 본인 기준</b> 왼쪽/오른쪽 (COCO 약속). 웹캠 미리보기는 거울처럼 뒤집혀 보일 수 있지만, 우리 규칙은 대부분 양쪽 중간점을 써서 결과에는 영향이 없음.</div>
+<h3 class="ed">B. 한 프레임의 결과 모양 (Detection)</h3>
+<div class="tw"><table class="t1"><thead><tr><th>#</th><th>정할 것</th><th>추천</th><th>이유</th><th class="dc">결정</th></tr></thead><tbody>
+<tr data-id="B1" data-name="결과에 함께 넣을 것" class=""><td class="id">B1</td><td class="ed nm">결과에 함께 넣을 것</td><td class="ed rec">카메라 이름(outer/inner), 찍힌 시각, 화면 가로·세로, 사람 목록, 처리 시간(ms)</td><td class="ed why">쓰러짐(2초 지속)·부재(5초 0명)는 시간이 꼭 필요. 처리 시간으로 FPS 계산</td>
+<td class="dc"><label><input type="radio" name="B1" value="ok" checked=""> 추천대로</label><label><input type="radio" name="B1" value="chg"> 변경</label><input type="text" class="chg" name="B1-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="B2" data-name="사람이 없을 때" class=""><td class="id">B2</td><td class="ed nm">사람이 없을 때</td><td class="ed rec"><b>빈 목록 []</b> (None 아님)</td><td class="ed why"><code>for p in persons:</code>가 오류 없이 0번 돎</td>
+<td class="dc"><label><input type="radio" name="B2" value="ok" checked=""> 추천대로</label><label><input type="radio" name="B2" value="chg"> 변경</label><input type="text" class="chg" name="B2-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="B3" data-name="여러 명일 때" class=""><td class="id">B3</td><td class="ed nm">여러 명일 때</td><td class="ed rec">전부 넣고 <b>신뢰도 높은 순</b> 정렬</td><td class="ed why">1명만 필요한 쪽은 첫 번째만 꺼내면 됨</td>
+<td class="dc"><label><input type="radio" name="B3" value="ok" checked=""> 추천대로</label><label><input type="radio" name="B3" value="chg"> 변경</label><input type="text" class="chg" name="B3-chg" placeholder="변경 내용" value=""></td></tr>
+</tbody></table></div>
+<h3 class="ed">C. 카메라가 주는 화면 모양</h3>
+<div class="tw"><table class="t1"><thead><tr><th>#</th><th>정할 것</th><th>추천</th><th>이유</th><th class="dc">결정</th></tr></thead><tbody>
+<tr data-id="C1" data-name="색 순서" class=""><td class="id">C1</td><td class="ed nm">색 순서</td><td class="ed rec">카메라 모듈에서 <b>BGR로 통일</b></td><td class="ed why">⚠️ OpenCV(USB)는 BGR, picamera2(CSI)는 설정에 따라 RGB로 줄 수 있음. 다르면 같은 모델에서도 결과가 달라짐</td>
+<td class="dc"><label><input type="radio" name="C1" value="ok" checked=""> 추천대로</label><label><input type="radio" name="C1" value="chg"> 변경</label><input type="text" class="chg" name="C1-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="C2" data-name="해상도" class=""><td class="id">C2</td><td class="ed nm">해상도</td><td class="ed rec">둘 다 <b>640×480</b>, config.yaml 고정</td><td class="ed why">감시 구역 좌표는 해상도에 따라 달라짐. 바꾸면 감시 구역 다시 찍기</td>
+<td class="dc"><label><input type="radio" name="C2" value="ok" checked=""> 추천대로</label><label><input type="radio" name="C2" value="chg"> 변경</label><input type="text" class="chg" name="C2-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="C3" data-name="회전·반전" class=""><td class="id">C3</td><td class="ed nm">회전·반전</td><td class="ed rec">config.yaml에 카메라별 <code>flip</code> (none / h / v / both)</td><td class="ed why">거꾸로 달린 카메라는 서 있는 사람을 쓰러짐으로 판정할 수 있음</td>
+<td class="dc"><label><input type="radio" name="C3" value="ok" checked=""> 추천대로</label><label><input type="radio" name="C3" value="chg"> 변경</label><input type="text" class="chg" name="C3-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="C4" data-name="읽기 실패 시" class=""><td class="id">C4</td><td class="ed nm">읽기 실패 시</td><td class="ed rec"><code>read()</code>가 <b>None</b> 반환, 2초 넘게 이어지면 <code>device_error</code> 이벤트</td><td class="ed why">카메라가 빠져도 프로그램이 멈추지 않고, 조용히 고장 나지도 않게</td>
+<td class="dc"><label><input type="radio" name="C4" value="ok" checked=""> 추천대로</label><label><input type="radio" name="C4" value="chg"> 변경</label><input type="text" class="chg" name="C4-chg" placeholder="변경 내용" value=""></td></tr>
+</tbody></table></div>
+<h3 class="ed">D. 함수 이름과 호출 방법</h3>
+<div class="tw"><table class="t1"><thead><tr><th>#</th><th>정할 것</th><th>추천</th><th>이유</th><th class="dc">결정</th></tr></thead><tbody>
+<tr data-id="D1" data-name="카메라" class=""><td class="id">D1</td><td class="ed nm">카메라</td><td class="ed rec"><code>cam = Camera("outer")</code> → <code>frame, ts = cam.read()</code></td><td class="ed why">두 카메라를 같은 모양으로 사용</td>
+<td class="dc"><label><input type="radio" name="D1" value="ok" checked=""> 추천대로</label><label><input type="radio" name="D1" value="chg"> 변경</label><input type="text" class="chg" name="D1-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="D2" data-name="디텍터" class=""><td class="id">D2</td><td class="ed nm">디텍터</td><td class="ed rec"><code>det = Detector()</code> (모델은 한 번만 로드) → <code>det.detect(frame, cam="outer", ts=ts)</code></td><td class="ed why">매번 로드하면 느려짐</td>
+<td class="dc"><label><input type="radio" name="D2" value="ok" checked=""> 추천대로</label><label><input type="radio" name="D2" value="chg"> 변경</label><input type="text" class="chg" name="D2-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="D3" data-name="결과 꺼내기" class=""><td class="id">D3</td><td class="ed nm">결과 꺼내기</td><td class="ed rec"><code>result.persons[0].keypoints["l_shoulder"]</code> → <code>(x, y, conf)</code></td><td class="ed why">—</td>
+<td class="dc"><label><input type="radio" name="D3" value="ok" checked=""> 추천대로</label><label><input type="radio" name="D3" value="chg"> 변경</label><input type="text" class="chg" name="D3-chg" placeholder="변경 내용" value=""></td></tr>
+<tr data-id="D4" data-name="가짜 디텍터" class=""><td class="id">D4</td><td class="ed nm">가짜 디텍터</td><td class="ed rec"><code>FakeDetector(pose="stand" / "lying" / "none")</code>도 같이 만들기</td><td class="ed why">모델이 없어도 둘 다 바로 개발 시작 가능</td>
+<td class="dc"><label><input type="radio" name="D4" value="ok" checked=""> 추천대로</label><label><input type="radio" name="D4" value="chg"> 변경</label><input type="text" class="chg" name="D4-chg" placeholder="변경 내용" value=""></td></tr>
+</tbody></table></div>
+<div class="co green ed"><b>⭐ D4 FakeDetector가 중요한 이유</b>: 모델이 아직 안 정해져도 가짜 결과로 둘 다 바로 개발을 시작할 수 있음. 팀원은 가짜 사람으로 감시 구역 판정을, 두혁은 가짜 누운 자세로 쓰러짐 판정을 먼저 만들고, 진짜 모델이 나오면 Detector로 바꿔 끼우기만 하면 됨.</div>
+</section>
+
+<section>
+  <h2>Part 2. 논의해야 할 것 <span class="tag">답이 정해져 있지 않음</span></h2>
+<div class="tw"><table class="t2"><thead><tr><th>#</th><th>주제</th><th>왜 논의가 필요한가</th><th>참고 · 선택지</th><th class="dc">결론</th><th>담당</th></tr></thead><tbody>
+<tr data-id="P1"><td class="id">P1</td><td class="ed nm"><b>포즈 모델 선택</b></td><td class="ed why">카메라 2대 + Pi4 CPU만으로 속도가 나올지가 가장 큰 위험</td><td class="ed rec">후보: YOLO nano 포즈 / MoveNet Lightning / MediaPipe Pose. 기준: 2대 동시 카메라당 5 FPS 이상. 실험 마감일 정하기</td>
+<td class="dc"><textarea name="P1-res" rows="2" placeholder="결론">YOLO nano 포즈 / MoveNet Lightning 비교</textarea></td><td><select name="P1-own"><option value=""></option><option>두혁</option><option selected="">팀원</option><option>같이</option><option>PM</option></select></td></tr>
+<tr data-id="P2"><td class="id">P2</td><td class="ed nm"><b>① 공통 형식 PR 작성자</b></td><td class="ed why">한 명이 써야 충돌이 없음</td><td class="ed rec">추천: 두혁 (detector 담당이라 형식과 가장 가까움)</td>
+<td class="dc"><textarea name="P2-res" rows="2" placeholder="결론">두혁 작성</textarea></td><td><select name="P2-own"><option value=""></option><option selected="">두혁</option><option>팀원</option><option>같이</option><option>PM</option></select></td></tr>
+<tr data-id="P3"><td class="id">P3</td><td class="ed nm"><b>② 카메라 · ③ 디텍터 담당과 시작 시점</b></td><td class="ed why">①이 dev에 merge된 뒤 시작해야 함</td><td class="ed rec">추천: ② 카메라 = 팀원, ③ 디텍터 = 두혁</td>
+<td class="dc"><textarea name="P3-res" rows="2" placeholder="결론">카메라 ai인식 : 원석
+문제 인식 코딩 : 두혁</textarea></td><td><select name="P3-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P4"><td class="id">P4</td><td class="ed nm"><b>새 이벤트 이름 확정</b></td><td class="ed why">부재·작업자 수 결과를 logic에 넘기는 이벤트 이름이 필요</td><td class="ed rec">후보: <code>guard_absent</code> / <code>guard_present</code> (outer), <code>worker_count</code> (inner), <code>pose</code> (양쪽)</td>
+<td class="dc"><textarea name="P4-res" rows="2" placeholder="결론">하면서 정하기</textarea></td><td><select name="P4-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P5"><td class="id">P5</td><td class="ed nm"><b>쓰러짐 기준값을 카메라별로 나눌지</b></td><td class="ed why">바깥은 옆에서, 안쪽은 위에서 비춰 같은 기준이 안 맞을 수 있음</td><td class="ed rec">① 하나로 공통 ② config에 <code>fall.outer.*</code> / <code>fall.inner.*</code> 분리. 측정해 보고 정하기로 해도 됨</td>
+<td class="dc"><textarea name="P5-res" rows="2" placeholder="결론">안과 바깥 쓰러짐 기준 구분</textarea></td><td><select name="P5-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P6"><td class="id">P6</td><td class="ed nm"><b>카메라 설치 위치 · 각도</b></td><td class="ed why">쓰러짐 판정은 전신이 보여야 함. 각도가 바뀌면 기준값 다시 측정</td><td class="ed rec">바깥: 1.5~2m 거리, 약간 높게. 안쪽: 모형 천장 모서리에서 비스듬히. 고정 방법(거치대·테이프)</td>
+<td class="dc"><textarea name="P6-res" rows="2" placeholder="결론">ㅇㅇ</textarea></td><td><select name="P6-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P7"><td class="id">P7</td><td class="ed nm"><b><code>common/</code> 수정 규칙</b></td><td class="ed why">공통 파일만 충돌이 날 수 있는 곳</td><td class="ed rec">추천: 고치기 전 채팅으로 먼저 알리기 + PR은 둘 다 Approve</td>
+<td class="dc"><textarea name="P7-res" rows="2" placeholder="결론">ㅇㅇ</textarea></td><td><select name="P7-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P8"><td class="id">P8</td><td class="ed nm"><b>테스트 영상 공유</b></td><td class="ed why">영상은 용량이 커서 Git에 안 올림</td><td class="ed rec">공유 드라이브 폴더 위치, 파일 이름 규칙 (예: <code>20261120_inner_lying_01.mp4</code>)</td>
+<td class="dc"><textarea name="P8-res" rows="2" placeholder="결론">알아서 잘하자</textarea></td><td><select name="P8-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P9"><td class="id">P9</td><td class="ed nm"><b>라즈베리파이 사용 시간표</b></td><td class="ed why">1대를 둘이 나눠 써야 함</td><td class="ed rec">오전/오후 나누기, 사용 후 <code>git status</code> 깨끗하게 두기</td>
+<td class="dc"><textarea name="P9-res" rows="2" placeholder="결론">두대 있는데?</textarea></td><td><select name="P9-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P10"><td class="id">P10</td><td class="ed nm"><b>리뷰 · 소통 약속</b></td><td class="ed why">PR이 오래 대기하면 두 브랜치가 멀어짐</td><td class="ed rec">리뷰 24시간 안에, PR은 하루치 작은 단위로</td>
+<td class="dc"><textarea name="P10-res" rows="2" placeholder="결론">게으름 피우지 마라</textarea></td><td><select name="P10-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P11"><td class="id">P11</td><td class="ed nm"><b>인터페이스 변경 절차</b></td><td class="ed why">나중에 형식을 바꿀 때 한쪽만 바꾸면 깨짐</td><td class="ed rec">추천: interface.md 버전 올리기 + 둘 다 Approve + 채팅 공지</td>
+<td class="dc"><textarea name="P11-res" rows="2" placeholder="결론">소통 잘해라</textarea></td><td><select name="P11-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+<tr data-id="P12"><td class="id">P12</td><td class="ed nm"><b>기한</b></td><td class="ed why">이슈마다 기한 칸이 비어 있음</td><td class="ed rec">#1~#7 이슈별 KST 날짜 정하기</td>
+<td class="dc"><textarea name="P12-res" rows="2" placeholder="결론">에이 알아서 잘 하자 ㅋㅋ</textarea></td><td><select name="P12-own"><option value=""></option><option>두혁</option><option>팀원</option><option selected="">같이</option><option>PM</option></select></td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+  <h2>Part 3. 회의 후 할 일</h2>
+  <h3>결과 남기는 곳 (3군데)</h3>
+  <ol class="ed">
+    <li><b>회의록</b> — <code>docs/meetings/YYYY-MM-DD.md</code> (📋 버튼으로 복사)</li>
+    <li><b>인터페이스 문서</b> — <code>docs/interface.md</code> v2 (아래 부록)</li>
+    <li><b>코드</b> — <code>vision/common/detector.py</code> + <code>config.yaml</code> vision 섹션 (아래 부록)</li>
+  </ol>
+  <p class="ed">→ 셋을 한 PR(①)로 올리고, 상대방 Approve 후 dev에 merge</p>
+  <h3>체크리스트</h3>
+  <ul class="chk"><li><label><input type="checkbox" name="chk0" checked=""> <span class="ed">둘 다 이 페이지 읽고 결정 칸에 표시</span></label></li><li><label><input type="checkbox" name="chk1" checked=""> <span class="ed">회의 (Part 1 → Part 2)</span></label></li><li><label><input type="checkbox" name="chk2" checked=""> <span class="ed">회의록 작성 (아래 '회의록 Markdown 복사' 버튼 사용)</span></label></li><li><label><input type="checkbox" name="chk3" checked=""> <span class="ed">① PR: detector.py(Person·Detection·FakeDetector) + config.yaml + interface.md v2</span></label></li><li><label><input type="checkbox" name="chk4"> <span class="ed">① 상대방 Approve → dev merge</span></label></li><li><label><input type="checkbox" name="chk5"> <span class="ed">② 카메라 브랜치 시작 (feat/2-common-camera)</span></label></li><li><label><input type="checkbox" name="chk6"> <span class="ed">③ 디텍터 브랜치 시작 (feat/2-common-detector)</span></label></li></ul>
+  <h3>커밋 · 기록 타이밍</h3>
+  <ul class="ed">
+    <li>📌 <code>feat(vision): 공통 Person·Detection 형식 및 FakeDetector 추가</code></li>
+    <li>📌 <code>chore(config): vision 공통 설정 추가</code></li>
+    <li>📌 <code>docs(interface): 비전 공통 형식 v2</code></li>
+    <li>📸 회의 결정 사항 화면 (보고서 "인터페이스 설계 과정"용)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>부록 · 템플릿</h2>
+  <details><summary>📄 vision/common/detector.py</summary><div><div class="pre"><button class="btn sm cp" data-target="tDet">복사</button><pre id="tDet">"""공통 디텍터 — 반환 형식은 docs/interface.md v2와 반드시 일치."""
+from __future__ import annotations
+
+import time
+from dataclasses import dataclass, field
+
+# COCO 17 관절 (찍힌 사람 본인 기준 왼쪽/오른쪽)
+KEYPOINTS = [
+    "nose", "l_eye", "r_eye", "l_ear", "r_ear",
+    "l_shoulder", "r_shoulder", "l_elbow", "r_elbow", "l_wrist", "r_wrist",
+    "l_hip", "r_hip", "l_knee", "r_knee", "l_ankle", "r_ankle",
+]
+
+
+@dataclass
+class Person:
+    bbox: tuple[int, int, int, int]                   # (x1, y1, x2, y2) 픽셀, 왼쪽 위 원점, 아래로 y 증가
+    keypoints: dict[str, tuple[float, float, float]]  # 17개 항상 존재: 이름 -&gt; (x, y, conf), 안 보이면 conf=0
+    conf: float                                       # 사람 신뢰도 0~1
+
+
+@dataclass
+class Detection:
+    cam: str                         # "outer" | "inner"
+    ts: float                        # 프레임 촬영 시각 (epoch 초)
+    width: int
+    height: int
+    persons: list[Person] = field(default_factory=list)  # 없으면 [], 신뢰도 높은 순
+    infer_ms: float = 0.0
+
+
+class FakeDetector:
+    """모델 없이 개발할 때 쓰는 가짜 디텍터. pose='stand' | 'lying' | 'none'"""
+
+    def __init__(self, pose: str = "stand"):
+        self.pose = pose
+
+    def detect(self, frame, cam: str, ts: float | None = None) -&gt; Detection:
+        h, w = (480, 640) if frame is None else frame.shape[:2]
+        ts = time.time() if ts is None else ts
+        if self.pose == "none":
+            return Detection(cam, ts, w, h, [])
+        if self.pose == "stand":   # 화면 가운데 서 있는 사람
+            bbox = (280, 100, 360, 420)
+            kp = {k: (320.0, 100 + i * 18.0, 0.9) for i, k in enumerate(KEYPOINTS)}
+        else:                      # 바닥에 누운 사람
+            bbox = (150, 360, 470, 430)
+            kp = {k: (150 + i * 18.0, 395.0, 0.9) for i, k in enumerate(KEYPOINTS)}
+        return Detection(cam, ts, w, h, [Person(bbox, kp, 0.9)])
+
+
+class Detector:
+    """진짜 모델 디텍터 — ③ 브랜치(feat/2-common-detector)에서 구현."""
+
+    def __init__(self, model_path: str = "models/pose.onnx"):
+        raise NotImplementedError("③에서 구현 예정. 지금은 FakeDetector 사용")
+</pre></div></div></details>
+  <details><summary>⚙️ config.yaml 추가분</summary><div><div class="pre"><button class="btn sm cp" data-target="tCfg">복사</button><pre id="tCfg">vision:
+  person_conf_min: 0.5     # A6 사람 신뢰도 기준
+  kp_conf_min: 0.3         # A6 관절 신뢰도 기준
+  outer: {source: csi, width: 640, height: 480, flip: none}   # C2, C3
+  inner: {source: usb, device: 0, width: 640, height: 480, flip: none}
+  # flip: none | h(좌우) | v(상하) | both(180도)
+</pre></div></div></details>
+  <details><summary>📝 docs/interface.md 추가분</summary><div><div class="pre"><button class="btn sm cp" data-target="tIfc">복사</button><pre id="tIfc">## v2 — 비전 공통 형식 (YYYY-MM-DD 합의: 두혁, 팀원)
+
+### 좌표 규칙
+- 단위: 픽셀 / 원점: 왼쪽 위 (0,0) / 오른쪽으로 x 증가, 아래로 y 증가
+- bbox: (x1, y1, x2, y2) = 왼쪽 위, 오른쪽 아래
+
+### Person
+- bbox, keypoints(COCO 17개, 항상 전부 존재, 안 보이면 conf=0), conf
+
+### Detection
+- cam("outer"|"inner"), ts(epoch 초), width, height, persons(없으면 [], 신뢰도 높은 순), infer_ms
+
+### 카메라 출력
+- 색 순서 BGR 통일 / 640×480 / flip은 config에서 / 읽기 실패 시 None
+
+### 바꾸는 법
+- 이 형식을 바꾸려면 버전을 올리고 두 사람 모두 PR에서 Approve
+</pre></div></div></details>
+</section>
+</main>
+
+<div class="toast" id="toast">회의록 Markdown을 복사했어요</div>
+<div class="modal" id="modal"><div class="box">
+  <b>입력한 내용을 모두 지울까요?</b>
+  <p style="margin:6px 0 0;font-size:14px;color:var(--ink2)">결정·결론·체크 상태가 비워져요. 편집한 문구는 그대로예요.</p>
+  <div class="row"><button class="btn" id="mNo">취소</button><button class="btn dark" id="mYes">지우기</button></div>
+</div></div>
+
+<script>
+(function(){
+  var root=document.documentElement, rev=root.getAttribute('data-rev')||'1';
+  var KEY='buddy-guard-vision-agenda-r'+rev;
+  var fields=function(){return document.querySelectorAll('main input, main textarea, main select');};
+  var dirtyText=false;
+
+  function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},1800);}
+
+  function collect(){var o={};fields().forEach(function(el){
+      if(el.type==='radio'){ if(el.checked) o[el.name]=el.value; }
+      else if(el.type==='checkbox'){ o[el.name]=el.checked; }
+      else { o[el.name]=el.value; } });return o;}
+  function apply(o){fields().forEach(function(el){
+      if(!(el.name in o)) return;
+      if(el.type==='radio'){ el.checked=(o[el.name]===el.value); }
+      else if(el.type==='checkbox'){ el.checked=!!o[el.name]; }
+      else { el.value=o[el.name]; } });}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(collect()));document.getElementById('status').textContent='자동 저장됨 · '+new Date().toLocaleTimeString('ko-KR',{timeZone:'Asia/Seoul'})+' KST';}catch(e){document.getElementById('status').textContent='이 브라우저에서는 자동 저장이 안 돼요 (HTML 저장을 이용하세요)';}}
+  function load(){try{var s=localStorage.getItem(KEY);if(s) apply(JSON.parse(s));}catch(e){}}
+
+  function refresh(){
+    var rows=document.querySelectorAll('table.t1 tr[data-id]'),done=0;
+    rows.forEach(function(tr){var id=tr.getAttribute('data-id');
+      var r=tr.querySelector('input[type=radio]:checked');
+      tr.classList.toggle('ok',!!r&&r.value==='ok');tr.classList.toggle('chg',!!r&&r.value==='chg');
+      if(r) done++;});
+    document.getElementById('p1prog').textContent=done+' / '+rows.length+' 결정';
+  }
+
+  document.querySelector('main').addEventListener('input',function(e){
+    if(e.target.matches('input,textarea,select')){ save(); refresh(); }
+    else if(e.target.closest('.ed')){ dirtyText=true; document.getElementById('status').textContent='문구 편집 중 — 💾 HTML 저장을 눌러야 파일에 남아요'; }
+  });
+  document.querySelector('main').addEventListener('change',function(e){ if(e.target.matches('input,textarea,select')){ save(); refresh(); } });
+
+  document.getElementById('allOk').onclick=function(){
+    document.querySelectorAll('table.t1 tr[data-id]').forEach(function(tr){
+      if(!tr.querySelector('input[type=radio]:checked')){ tr.querySelector('input[value=ok]').checked=true; }});
+    save(); refresh(); toast('남은 항목을 "추천대로"로 표시했어요');
+  };
+
+  // 편집 모드
+  var editing=false;
+  document.getElementById('btnEdit').onclick=function(){
+    editing=!editing; document.body.classList.toggle('editing',editing); this.classList.toggle('on',editing);
+    document.querySelectorAll('.ed').forEach(function(el){ if(editing) el.setAttribute('contenteditable','true'); else el.removeAttribute('contenteditable'); });
+    toast(editing?'편집 모드 켜짐 — 점선 칸을 클릭해서 고치세요':'편집 모드 꺼짐');
+  };
+
+  // Markdown 회의록
+  function txt(el){return el? el.innerText.replace(/\s+/g,' ').trim():'';}
+  function buildMd(){
+    var v=function(n){var el=document.querySelector('[name="'+n+'"]');return el?el.value.trim():'';};
+    var L=[];
+    L.push('# 회의록 '+(v('m-date')||'YYYY-MM-DD')+' (KST '+(v('m-time')||'HH:MM~HH:MM')+') — 비전 공통 형식');
+    L.push('참석: '+(v('m-who')||'')); L.push('작성: '+(v('m-writer')||'')); L.push('');
+    L.push('## Part 1 결정');
+    var changed=[],ok=[],none=[];
+    document.querySelectorAll('table.t1 tr[data-id]').forEach(function(tr){
+      var id=tr.getAttribute('data-id'), nm=txt(tr.querySelector('.nm')), rec=txt(tr.querySelector('.rec'));
+      var r=tr.querySelector('input[type=radio]:checked'), ch=tr.querySelector('input.chg').value.trim();
+      if(r&&r.value==='chg') changed.push('- **'+id+' '+nm+'**: 추천('+rec+') → **'+(ch||'(내용 미기재)')+'**');
+      else if(r) ok.push(id); else none.push(id);
+    });
+    if(changed.length){L.push('### 변경된 항목');L=L.concat(changed);}
+    L.push('- 추천대로: '+(ok.length?ok.join(', '):'없음'));
+    if(none.length) L.push('- ⚠️ 미결정: '+none.join(', '));
+    L.push('');
+    L.push('## Part 2 결론');
+    document.querySelectorAll('table.t2 tr[data-id]').forEach(function(tr){
+      var id=tr.getAttribute('data-id'), nm=txt(tr.querySelector('.nm'));
+      var res=tr.querySelector('textarea').value.trim().replace(/\n+/g,' / '), own=tr.querySelector('select').value;
+      L.push('- **'+id+' '+nm+'**: '+(res||'(미정)')+(own?' — 담당: '+own:''));
+    });
+    L.push('');
+    L.push('## 다음 할 일');
+    document.querySelectorAll('ul.chk li').forEach(function(li){
+      var c=li.querySelector('input').checked; L.push('- ['+(c?'x':' ')+'] '+txt(li.querySelector('.ed')));
+    });
+    return L.join('\n')+'\n';
+  }
+  function copyText(s){
+    if(navigator.clipboard&&window.isSecureContext){ return navigator.clipboard.writeText(s); }
+    return new Promise(function(res,rej){var ta=document.createElement('textarea');ta.value=s;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy')?res():rej();}catch(e){rej(e);} document.body.removeChild(ta);});
+  }
+  function download(name,content,type){
+    try{var b=new Blob([content],{type:type});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();
+      setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);return true;}catch(e){return false;}
+  }
+  document.getElementById('btnMd').onclick=function(){copyText(buildMd()).then(function(){toast('회의록 Markdown을 복사했어요');},function(){toast('복사가 막혔어요 — ⬇️ .md 버튼을 써 주세요');});};
+  document.getElementById('btnMdDl').onclick=function(){
+    var d=(document.querySelector('[name="m-date"]').value||'YYYY-MM-DD');
+    if(!download(d+'-vision-common.md',buildMd(),'text/markdown;charset=utf-8')) toast('다운로드가 막혔어요 — 복사 버튼을 써 주세요');
+  };
+
+  // 부록 복사
+  document.querySelectorAll('.cp').forEach(function(b){b.onclick=function(){var t=document.getElementById(b.getAttribute('data-target')).textContent;
+    copyText(t).then(function(){toast('복사했어요');},function(){toast('복사가 막혔어요 — 직접 선택해서 복사해 주세요');});};});
+
+  // HTML 저장 (입력값·편집 문구를 파일에 반영)
+  document.getElementById('btnSave').onclick=function(){
+    var clone=document.documentElement.cloneNode(true);
+    var src=fields(), dst=clone.querySelectorAll('main input, main textarea, main select');
+    src.forEach(function(el,i){var d=dst[i]; if(!d) return;
+      if(el.type==='radio'||el.type==='checkbox'){ if(el.checked) d.setAttribute('checked',''); else d.removeAttribute('checked'); }
+      else if(el.tagName==='TEXTAREA'){ d.textContent=el.value; }
+      else if(el.tagName==='SELECT'){ Array.prototype.forEach.call(d.options,function(o,j){ if(j===el.selectedIndex) o.setAttribute('selected',''); else o.removeAttribute('selected'); }); }
+      else { d.setAttribute('value',el.value); } });
+    clone.querySelectorAll('[contenteditable]').forEach(function(e){e.removeAttribute('contenteditable');});
+    var body=clone.querySelector('body'); body.classList.remove('editing'); if(!body.className) body.removeAttribute('class');
+    clone.querySelectorAll('.btn.on').forEach(function(b){b.classList.remove('on');});
+    clone.querySelectorAll('tr.ok,tr.chg').forEach(function(t){t.classList.remove('ok','chg');});
+    clone.querySelector('.toast').classList.remove('show');
+    clone.querySelector('#modal').removeAttribute('style');
+    clone.querySelector('#status').textContent='입력 내용은 이 브라우저에 자동 저장돼요';
+    var newRev=String(parseInt(rev,10)+1); clone.setAttribute('data-rev',newRev);
+    var html='<!DOCTYPE html>\n'+clone.outerHTML;
+    if(download('vision-common-agenda.html',html,'text/html;charset=utf-8')){
+      try{localStorage.setItem('buddy-guard-vision-agenda-r'+newRev,JSON.stringify(collect()));}catch(e){}
+      dirtyText=false; toast('HTML을 저장했어요 — 저장소의 파일을 이걸로 덮어쓰고 커밋하세요');
+    } else toast('이 화면에서는 파일 저장이 막혀 있어요 — 파일을 내 PC에서 열어 주세요');
+  };
+
+  // 초기화
+  var modal=document.getElementById('modal');
+  document.getElementById('btnReset').onclick=function(){modal.style.display='flex';};
+  document.getElementById('mNo').onclick=function(){modal.style.display='none';};
+  document.getElementById('mYes').onclick=function(){
+    fields().forEach(function(el){ if(el.type==='radio'||el.type==='checkbox') el.checked=false; else if(el.tagName==='SELECT') el.selectedIndex=0; else el.value=''; });
+    try{localStorage.removeItem(KEY);}catch(e){} refresh(); modal.style.display='none'; toast('입력 내용을 지웠어요');
+  };
+
+  window.addEventListener('beforeunload',function(e){ if(dirtyText){ e.preventDefault(); e.returnValue=''; } });
+
+  load(); refresh();
+})();
+</script>
+
+
+</body></html>
