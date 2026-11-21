@@ -36,7 +36,7 @@ assignees: ''
 <!--
 작성 전 체크
 - Assignees: 고칠 사람 (모르면 비워 두고 회의에서 지정)
-- Labels: bug + 위치(common / outer / inner)
+- Labels: 역할(sw / hw / doc / pm) + 위치(common / outer / inner)
 - Type: Bug
 - 브랜치 이름: fix/<이슈번호>-<담당쪽>-<내용>
 -->

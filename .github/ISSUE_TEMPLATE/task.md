@@ -23,6 +23,6 @@ __/__
 
 <!--
 작성 전 체크
-- Assignees · Labels(task + 역할 + 위치) · Type(Task)
+- Assignees · Labels(역할 + 위치) · Type(Task)
 - 브랜치 이름: chore/<이슈번호>-<담당쪽>-<내용>
 -->
