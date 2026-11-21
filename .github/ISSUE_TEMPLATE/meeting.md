@@ -35,7 +35,7 @@ assignees: ''
 <!--
 작성 전 체크
 - Assignees: 결정에 참여하는 사람 모두
-- Labels: task, doc (+ 위치 라벨)
+- Labels: doc (+ 위치 라벨)
 - Type: Task
 - 브랜치: 회의 전 docs/<번호>-<주제>-agenda (Related #) → 회의 후 docs/<번호>-<주제>-decision (closes #)
 -->

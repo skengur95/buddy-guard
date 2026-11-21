@@ -31,7 +31,7 @@ __/__
 <!--
 작성 전 체크
 - Assignees: 담당자 지정
-- Labels: task + 역할(sw / hw / doc) + 위치(common / outer / inner)
+- Labels: 역할(sw / hw / doc / pm) + 위치(common / outer / inner)
 - Type: Feature
 - 브랜치 이름: feat/<이슈번호>-<담당쪽>-<기능>  예) feat/6-common-fall-rule
 -->
