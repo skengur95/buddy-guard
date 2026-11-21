@@ -3,7 +3,7 @@
 밀폐공간(탱크·맨홀) **2인 1조 작업 안전 모니터링** — Raspberry Pi 4 온디바이스 AI
 
 - 바깥 감시인이 감시 구역을 벗어나면 → 안쪽 작업자에게 경보
-- 감시인이든 작업자든 쓰러지면 → 유예 없이 즉시 경보
+- 감시인이든 작업자든 쓰러지면 → 교대 유예 중에도 예외 없이 경보 (누운 자세 2초 확인 후)
 - 감시인 교대 사인 → 60초 유예, 작업자에게 알림
 - 안쪽 가스·온도가 기준을 넘거나 불꽃이 감지되면 → 경보
 
@@ -35,9 +35,9 @@ python main.py --sim sim/scenarios/s3_handover_ok.yaml  # 노트북 (하드웨�
 | `core/` | 이벤트 형식, 큐, KST 시간 | 통합·문서 |
 | `sensors/` | MQ-2, MQ-7(ADS1115), BME280, 불꽃 | HW |
 | `io_devices/` | 부저, LED, 릴레이, 버튼, RFID | HW |
-| `vision/common/` | 카메라, 디텍터(Person 형식), 쓰러짐 규칙 | 팀원 + 두혁 (fall.py 관리: 두혁) |
-| `vision/outer/` | 감시 구역 인원·감시인 부재 판정 | 팀원 |
-| `vision/inner/` | 작업자 검출, 밝기 보정 | 두혁 |
+| `vision/common/` | 카메라, 디텍터(Person 형식), 쓰러짐 규칙 | SW/AI |
+| `vision/outer/` | 감시 구역 인원·감시인 부재 판정 | SW/AI |
+| `vision/inner/` | 작업자 검출, 밝기 보정 | SW/AI |
 | `tests/` | 자동 테스트 (pytest) | 전원 |
 | `data/` | 실행 기록·녹화 (**Git에 올리지 않음**) | — |
 | `config.yaml` | 모든 기준값·핀 번호 (코드에 숫자 직접 쓰지 않기) | 전원 |
@@ -50,6 +50,8 @@ python main.py --sim sim/scenarios/s3_handover_ok.yaml  # 노트북 (하드웨�
 | `tools/` | 단독 테스트·보정 스크립트 | 전원 |
 | `docs/` | 모든 문서·회의록·예산·사진 | 통합·문서 |
 | `models/` | AI 모델 파일 (**Git에 올리지 않음**) | SW/AI |
+
+> 사람별 담당은 [AGENTS.md](AGENTS.md) "폴더 담당"이 기준
 
 ## 3. Git 규칙 (요약)
 
