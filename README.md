@@ -11,15 +11,21 @@
 
 ---
 
-## 1. 실행 방법
+## 1. 시작하기
 
+### 처음 설치
 ```bash
-# 라즈베리파이 (실제 하드웨어)
-source .venv/bin/activate
-python main.py
+git clone https://github.com/skengur95/buddy-guard.git
+cd buddy-guard              # 기본 브랜치 dev로 받아져요
+python -m venv .venv        # 라즈베리파이: python3 -m venv --system-site-packages .venv
+source .venv/Scripts/activate   # Windows Git Bash (라즈베리파이: source .venv/bin/activate)
+pip install -r requirements.txt
+```
 
-# 노트북 (하드웨어 없이 시뮬레이션)
-python main.py --sim sim/scenarios/s3_handover_ok.yaml
+### 실행
+```bash
+python main.py                                          # 라즈베리파이 (실제 하드웨어)
+python main.py --sim sim/scenarios/s3_handover_ok.yaml  # 노트북 (하드웨어 없이)
 ```
 
 ## 2. 폴더 구조
@@ -29,10 +35,14 @@ python main.py --sim sim/scenarios/s3_handover_ok.yaml
 | `core/` | 이벤트 형식, 큐, KST 시간 | 통합·문서 |
 | `sensors/` | MQ-2, MQ-7(ADS1115), BME280, 불꽃 | HW |
 | `io_devices/` | 부저, LED, 릴레이, 버튼, RFID | HW |
-| `vision/` | 카메라, 사람 검출, 감시 구역, 쓰러짐 | SW/AI |
-| `common` | 공통 반환 형식 합의 / 카메라 모듈 | SW |
-| `outer` | 감시자 쪽 카메라 기능 구현 | SW |
-| `inner` | 내부 작업자 쪽 카메라 기능 구현 | SW |
+| `vision/common/` | 카메라, 디텍터(Person 형식), 쓰러짐 규칙 | 팀원 + 두혁 (fall.py 관리: 두혁) |
+| `vision/outer/` | 감시 구역 인원·감시인 부재 판정 | 팀원 |
+| `vision/inner/` | 작업자 검출, 밝기 보정 | 두혁 |
+| `tests/` | 자동 테스트 (pytest) | 전원 |
+| `data/` | 실행 기록·녹화 (**Git에 올리지 않음**) | — |
+| `config.yaml` | 모든 기준값·핀 번호 (코드에 숫자 직접 쓰지 않기) | 전원 |
+| `AGENTS.md` · `CLAUDE.md` · `.gemini/` | AI 코딩 도구 공통 규칙 (원본: AGENTS.md) | 통합·문서 |
+| `.github/` | 이슈·PR 템플릿 | 통합·문서 |
 | `logic/` | 상태 머신, 판정 규칙 | SW/AI |
 | `alerts/` | 경보 등급 → 출력 패턴 | SW/AI |
 | `storage/` | 이벤트 기록 (events.db) | SW/AI |
@@ -41,39 +51,32 @@ python main.py --sim sim/scenarios/s3_handover_ok.yaml
 | `docs/` | 모든 문서·회의록·예산·사진 | 통합·문서 |
 | `models/` | AI 모델 파일 (**Git에 올리지 않음**) | SW/AI |
 
-## 3. 브랜치 규칙
+## 3. Git 규칙 (요약)
 
-- `main` — 시연 가능한 버전만. `dev`에서 통합의 날에 합침
-- `dev` — 통합 브랜치. **PR로만** 합침
-- `feat/역할-기능` — 예: `feat/hw-gas-sensor`, `feat/sw-fall-rule`, `docs/interface-v2`
+> 전체 규칙의 원본은 [AGENTS.md](AGENTS.md)예요. 바꿀 때는 그 파일만 고쳐요.
 
-## 4. 커밋 메시지 규칙
+- 기본 브랜치는 **`dev`**. 모든 PR은 dev로 → **Squash and merge**
+- `main`은 시연 가능한 버전만. 통합의 날에 dev → main **Create a merge commit**
+- 브랜치: `<종류>/<이슈번호>-<담당쪽>-<기능>` 예) `feat/6-common-fall-rule`
+- 커밋: `<종류>(<범위>): <한 줄 설명>` 예) `feat(vision): 감시 구역 다각형 판정 추가`
+- dev·main 직접 push 금지, `--force` 금지, 최신 dev 반영은 `git merge dev`
 
-```
-<종류>(<범위>): <무엇을 했는지 한 줄>
-```
+## 4. 이슈와 PR
 
-| 종류 | 언제 |
+- **New issue**에서 템플릿을 골라요: ✨ 기능(Type: Feature) · 🧩 작업(Task) · 📝 회의·결정(Task) · 🐞 버그(Bug)
+- **Type** = 무슨 일 / **Labels** = 누가(`sw` `hw` `doc` `pm`)·어디(`common` `outer` `inner`)
+- 이슈를 먼저 만들고 → 이슈 화면 **Development → Create a branch**로 브랜치를 따요
+- PR을 열면 체크리스트가 자동으로 채워져요. 본문에 `closes #이슈번호`
+
+## 5. 역할
+
+PM · HW · SW/AI · 통합·문서 — 업무 분담과 담당은 [docs/project-context.md](docs/project-context.md) 4장 참고
+
+## 6. 문서
+
+| 문서 | 내용 |
 |---|---|
-| `feat` | 기능 추가 |
-| `fix` | 버그 수정 |
-| `docs` | 문서 |
-| `test` | 테스트 |
-| `chore` | 설정·환경·잡일 |
-| `exp` | 실험(스파이크) |
-| `refactor` | 동작 변화 없는 구조 정리 |
-
-범위: `sensor`, `io`, `vision`, `logic`, `alerts`, `sim`, `config`, `docs` …
-
-예) `feat(vision): 감시 구역 다각형 판정 추가`
-
-## 5. PR 전 체크
-
-- [ ] `docs/interface.md`의 Event 형식을 지켰다
-- [ ] 숫자(기준값·핀 번호)를 코드에 직접 쓰지 않고 `config.yaml`에서 읽는다
-- [ ] 핀을 바꿨다면 `docs/wiring.md`도 고쳤다
-- [ ] 라즈베리파이 또는 `--sim`으로 실행해 봤다 (PR 본문에 결과 첨부)
-
-## 6. 역할
-
-PM · HW · SW/AI · 통합·문서 (업무 묶음은 프로젝트 매뉴얼 3장 참고)
+| [docs/project-context.md](docs/project-context.md) | 프로젝트 배경·결정 사항·이슈 목록·다음 작업 순서 |
+| [docs/interface.md](docs/interface.md) | 모듈 간 Event 형식, 비전 공통 형식 |
+| `docs/meetings/` | 회의록·회의 자료 |
+| `docs/budget/` | 예산·구매 내역 |
