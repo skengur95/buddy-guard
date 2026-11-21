@@ -27,11 +27,13 @@
 | `core/`, `sim/`, `docs/` | 두혁 (통합·문서) |
 | `sensors/`, `io_devices/` | 미정 |
 | `logic/`, `alerts/` | 미정 |
+| `storage/` | 미정 |
 
 ## Git 규칙
-- 기본 브랜치 `dev`(모든 PR 대상, Squash and merge) / `main`은 시연 가능한 버전만(dev→main은 Merge commit)
+- 기본 브랜치 `dev`(모든 PR 대상, Squash and merge) / `main`은 시연 가능한 버전만(dev→main은 Merge commit) — merge 전 버튼이 "Squash and merge"인지 확인
 - 브랜치 이름: `<종류>/<이슈번호>-<담당쪽>-<기능>` 예) `feat/6-common-fall-rule` (영어 소문자, `-` 연결)
-- 커밋 메시지: `<종류>(<범위>): <한 줄 설명>` — 종류 `feat fix docs test chore exp refactor`, 범위 `sensor io vision logic alerts sim config docs github`
+- 커밋 메시지: `<종류>(<범위>): <한 줄 설명>` — 종류 `feat fix docs test chore exp refactor`, 범위 `sensor io vision logic alerts sim config docs github core`
 - `dev`, `main`에 직접 push 금지. `git push --force` 금지. 동기화는 rebase 대신 `git merge dev`.
+- merge 후 브랜치는 삭제한다 (PR 화면 Delete branch, 로컬은 `git branch -d <브랜치>`)
 - PR 본문에 `closes #번호`, 실행 결과(캡처·로그) 첨부.
 - PR 체크: Event 형식 준수 / config에서 값 읽기 / 핀 변경 시 `docs/wiring.md` 수정 / 실기기 또는 `--sim` 실행 확인
